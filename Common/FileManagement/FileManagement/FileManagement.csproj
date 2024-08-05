@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
+    <PackageReference Include="EPPlus" Version="7.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Features" Version="8.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TuMedico.SharedKernel">
+      <HintPath>..\..\..\..\RVPInnoTech\Libs\TuMedico.SharedKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Utils">
+      <HintPath>..\..\..\Libs\Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="XCOPY &quot;$(TargetDir)$(TargetName).dll&quot; ..\..\..\Libs\ /s /y /r&#xD;&#xA;XCOPY &quot;$(TargetDir)$(TargetName).pdb&quot; ..\..\..\Libs\ /s /y /r" />
+  </Target>
+
+</Project>
