@@ -22,9 +22,9 @@ namespace Authentication.Validators
             try
             {
                 var user = await _userManager.FindByNameAsync(context.UserName);
-                var claims = await _userManager.GetClaimsAsync(user);
                 if (user != null)
                 {
+                    var claims = await _userManager.GetClaimsAsync(user);
                     var result = await _signInManager.PasswordSignInAsync(context.UserName, context.Password, isPersistent: true, lockoutOnFailure: true);
                     if (result.Succeeded)
                     {

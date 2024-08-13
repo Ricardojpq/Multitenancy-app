@@ -8,31 +8,30 @@ namespace LookupTables.Database.Persistence
 {
     public class LookupTableDbContext : DbContext
     {
-        public readonly string tenantId = "";
+        public readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LookupTableDbContext(IHttpContextAccessor httpContextAccessor) 
+        public LookupTableDbContext(IHttpContextAccessor httpContextAccessor)
         {
-            tenantId = httpContextAccessor.HttpContext!.GetTenantId() ?? "";
+            _httpContextAccessor = httpContextAccessor;
         }
-        public LookupTableDbContext(DbContextOptions<LookupTableDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options) 
+        public LookupTableDbContext(DbContextOptions<LookupTableDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
-            if (httpContextAccessor.HttpContext != null)
-            {
-              tenantId = httpContextAccessor.HttpContext!.GetTenantId() ?? "";
-            }
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            string tenantId = "";
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                tenantId = _httpContextAccessor.HttpContext.GetTenantId()!;
+            }
+
             foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Added && e.Entity is LookupTableTenantBaseEntity))
             {
-                if (string.IsNullOrEmpty(tenantId))
-                {
-                    throw new Exception("Tenant not found when registering");
-                }
-
                 var entity = item.Entity as LookupTableTenantBaseEntity;
-                entity!.TenantId = Guid.Parse(tenantId);
+                if (!string.IsNullOrEmpty(tenantId))
+                    entity!.TenantId = Guid.Parse(tenantId);
             }
 
             return base.SaveChangesAsync(cancellationToken);

@@ -2,10 +2,12 @@
 using Authentication.Configuration;
 using Authentication.Data;
 using Authentication.Entities;
+using Authentication.Models;
 using Authentication.Util;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using Constants = Utils.Shared.Constants;
 
@@ -13,11 +15,18 @@ namespace Authentication.Persistence.Context
 {
     internal static class AuthenticationApiDbInitializer
     {
-        internal static async Task InitializeAsync(IApplicationBuilder app, bool seedTestUser, string tenandIdTestUser)
+        internal static async Task InitializeAsync(IApplicationBuilder app, bool seedTestUser)
         {
             using var scope = app.ApplicationServices
                 .GetService<IServiceScopeFactory>()
                 ?.CreateScope();
+
+            var configuration = app.ApplicationServices
+            .GetService<IConfiguration>()!;
+
+            var tenant_1 = configuration.GetValue<string>("Tenant1Id");
+            var tenant_2 = configuration.GetValue<string>("Tenant2Id");
+
 
             var applicationDbContext = scope.ServiceProvider
                 .GetRequiredService<ApplicationDbContext>();
@@ -36,7 +45,32 @@ namespace Authentication.Persistence.Context
 
             if (seedTestUser)
             {
-                await SeedUsers(scope.ServiceProvider, tenandIdTestUser);
+                var users = new List<UserModel>()
+                {
+                    new UserModel()
+                    {
+                        UserName = "testuser_1@portfolio.com",
+                        Password = "4DevOnly!",
+                        Country = "VEN",
+                        FirstName = "User 1",
+                        LastName = "LastName",
+                        TenantId = tenant_1!
+                    },
+                     new UserModel()
+                    {
+                        UserName = "testuser_2@portfolio.com",
+                        Password = "4DevOnly!",
+                        Country = "VEN",
+                        FirstName = "User 2",
+                        LastName = "LastName",
+                        TenantId = tenant_2!
+                    },
+                };
+
+                foreach (var user in users)
+                {
+                    await SeedUsers(scope.ServiceProvider, user);
+                }
             }
         }
 
@@ -67,28 +101,23 @@ namespace Authentication.Persistence.Context
             }
         }
 
-        private static async Task SeedUsers(IServiceProvider serviceProvider, string tenandIdTestUser)
+        private static async Task SeedUsers(IServiceProvider serviceProvider, UserModel userData)
         {
-            const string userName = "testuser@portfolio.com";
-            const string userPwd = "4DevOnly!";
-            const string CountryId = "VEN";
-
-
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            var user = await userManager.FindByNameAsync(userName);
+            var user = await userManager.FindByNameAsync(userData.UserName);
             if (user is null)
             {
-                user = new ApplicationUser(userName)
+                user = new ApplicationUser(userData.UserName)
                 {
-                    FirstName = "Test User FirstName",
-                    LastName = "Test User LastName",
-                    TenantId = tenandIdTestUser
+                    FirstName = userData.FirstName,
+                    LastName = userData.LastName,
+                    TenantId = userData.TenantId
                 };
 
                 user.AddClient(Clients.AngularClient);
 
-                var result = await userManager.CreateAsync(user, userPwd);
+                var result = await userManager.CreateAsync(user, userData.Password);
                 if (!result.Succeeded)
                 {
                     throw new ApplicationException("Impossible to seed user testuser@com, creation failed");
@@ -116,9 +145,9 @@ namespace Authentication.Persistence.Context
             if (claimsToInsert.Any())
             {
                 var newClaims = claimsToInsert.Select(claimName => new Claim("Permission", claimName)).ToList();
-                newClaims.Add(new Claim(Constants.TenantId, tenandIdTestUser));
-                newClaims.Add(new Claim(Constants.UserId,user.Id.ToString()));
-                newClaims.Add(new Claim(Constants.CountryId,CountryId));
+                newClaims.Add(new Claim(Constants.TenantId, userData.TenantId));
+                newClaims.Add(new Claim(Constants.UserId, user.Id.ToString()));
+                newClaims.Add(new Claim(Constants.CountryId, userData.Country));
                 newClaims.Add(new Claim(JwtClaimTypes.Subject, user.Id.ToString()));
                 await userManager.AddClaimsAsync(user, newClaims);
             }

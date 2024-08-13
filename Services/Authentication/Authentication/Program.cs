@@ -74,7 +74,7 @@ if (!app.Environment.IsDevelopment())
 
 var seedTestUser = builder.Configuration.GetValue<bool>("SeedTestUser");
 var tenantIdTestUser = builder.Configuration.GetValue<string>("TenantId");
-AuthenticationApiDbInitializer.InitializeAsync(app, seedTestUser, tenantIdTestUser).GetAwaiter().GetResult();
+AuthenticationApiDbInitializer.InitializeAsync(app, seedTestUser).GetAwaiter().GetResult();
 #endregion
 
 app.Run();
