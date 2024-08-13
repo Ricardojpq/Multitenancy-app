@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "1ee21f6b-312e-4a0b-811b-78c7e491b3d5",
+    "Name": "Tenant_1",
+    "Description": "Implementacion Tenant 1",
+    "IsActive": true,
+    "MaintenanceUser": "Initial Application Load"
+  },
+  {
+    "_id": "df31e4b6-1cc8-44a4-99bc-d10d15cdc145",
+    "Name": "Tenant_2",
+    "Description": "Implementacion Tenant 2",
+    "IsActive": true,
+    "MaintenanceUser": "Initial Application Load"
+  }
+]
