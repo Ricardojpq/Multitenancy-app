@@ -15,6 +15,7 @@ namespace SharedKernel.MongoScheme
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
+        [Key]
         public Guid _Id { get; set; }
 
         [Required]
@@ -30,9 +31,6 @@ namespace SharedKernel.MongoScheme
         [MaxLength(80)]
         public string? UpdatedBy { get; set; }
         
-        [Required]
-        [BsonRepresentation(BsonType.String)]
-        public Guid TenantId { get; set; }
         public bool IsDeleted { get; set; }
         public BaseEntity()
         {
@@ -41,14 +39,13 @@ namespace SharedKernel.MongoScheme
             CreatedDate = DateTime.Now.ToUniversalTime();
             CreatedBy = "";
 	        IsDeleted = false;
-            TenantId = Guid.NewGuid();
             UpdatedDate = DateTime.Now.ToUniversalTime();
             UpdatedBy = null;
         }
 
         public override string ToString()
         {
-            return $"Entity Info: PK: {_Id}, TenantId:{TenantId}, Active: {IsActive}, Created: {CreatedDate}";
+            return $"Entity Info: PK: {_Id}, Active: {IsActive}, Created: {CreatedDate}";
         }
     }
 }
