@@ -9,23 +9,28 @@ namespace LookupTables.Database.Persistence
     public class LookupTableDbContext : DbContext
     {
         public readonly IHttpContextAccessor _httpContextAccessor;
-
+        public readonly string tenantId;
+        
         public LookupTableDbContext(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
+            if (_httpContextAccessor.HttpContext != null) 
+                tenantId = _httpContextAccessor.HttpContext.GetTenantId() ?? "";
         }
         public LookupTableDbContext(DbContextOptions<LookupTableDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
+            if (_httpContextAccessor.HttpContext != null) 
+                tenantId = _httpContextAccessor.HttpContext.GetTenantId() ?? "";
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            string tenantId = "";
-            if (_httpContextAccessor.HttpContext != null)
-            {
-                tenantId = _httpContextAccessor.HttpContext.GetTenantId()!;
-            }
+            //string tenantId = "";
+            //if (_httpContextAccessor.HttpContext != null)
+            //{
+            //    tenantId = _httpContextAccessor.HttpContext.GetTenantId()!;
+            //}
 
             foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Added && e.Entity is LookupTableTenantBaseEntity))
             {
@@ -44,5 +49,6 @@ namespace LookupTables.Database.Persistence
         }
 
         public DbSet<Gender> Gender { get; set; }
+        public DbSet<Product> Product { get; set; }
     }
 }

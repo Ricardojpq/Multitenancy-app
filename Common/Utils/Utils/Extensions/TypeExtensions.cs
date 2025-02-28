@@ -14,7 +14,8 @@ namespace Utils.Extensions
             var booleans = new List<bool>();
             foreach (Type type in typesForNotValidating)
             {
-                booleans.Add(t.IsAssignableFrom(type));
+
+                booleans.Add(t.IsAssignableFrom(type) || type.IsAssignableFrom(t));
             }
             var result = booleans.Aggregate((b1, b2) => b1 || b2);
             return result;

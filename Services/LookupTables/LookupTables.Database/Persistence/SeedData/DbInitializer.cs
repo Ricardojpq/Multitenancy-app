@@ -63,6 +63,7 @@ namespace LookupTables.Database.Persistence.SeedData
         {
             try
             {
+                var test = context.Tenants.ToList();
                 var newEntities = tenants.Where(x => !context.Tenants.Any(y => x._Id == y._Id)).ToList();
                 if (newEntities.Any())
                 {

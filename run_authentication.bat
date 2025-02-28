@@ -1,0 +1,1 @@
+start cmd.exe /c "dotnet run --project Services\Authentication\Authentication\Authentication.csproj"

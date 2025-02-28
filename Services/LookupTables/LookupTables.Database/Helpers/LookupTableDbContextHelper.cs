@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using System.Linq.Expressions;
 using System.Reflection;
 using Utils.Extensions;
+using Utils.Models.Common.ValidationEntity;
 
 namespace LookupTables.Database.Helpers
 {
