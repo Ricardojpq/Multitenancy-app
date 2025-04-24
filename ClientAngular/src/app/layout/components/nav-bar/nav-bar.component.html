@@ -1,0 +1,33 @@
+<nav class="bg-lottery-dark text-white sticky top-0 z-50 shadow-md h-16">
+  <div class="container  px-0">
+    <p-menubar [model]="navItems" styleClass="bg-transparent border-0  pt-3 pb-3 px-0">
+      <ng-template #start>
+        <a routerLink="/" class="flex items-center gap-2 hover:text-lottery-yellow transition-colors">
+          <lucide-icon [img]="awardIcon" class="text-lottery-yellow" size="32"></lucide-icon>
+          <span class="text-2xl font-bold">
+              LotteryApp
+            </span>
+        </a>
+      </ng-template>
+      <ng-template #item let-item let-root="root">
+        <a class="flex items-center space-x-1 hover:text-lottery-teal transition-colors">
+          <span [class]="item.icon"></span>
+          <span>{{ item.label }}</span>
+        </a>
+      </ng-template>
+      <ng-template #end>
+        <div class="ml-4 pl-4 border-l border-gray-700">
+          <a routerLink="/Login">
+            <button
+              pButton
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background h-10 px-4 py-2 border-lottery-teal text-lottery-teal hover:bg-lottery-teal hover:text-white"
+            >
+              <lucide-icon [img]="userIcon"></lucide-icon>
+              Ingresar
+            </button>
+          </a>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </div>
+</nav>

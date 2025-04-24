@@ -1,0 +1,65 @@
+<footer class="bg-lottery-dark text-white pt-12 pb-6">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <a routerLink="/" class="flex items-center space-x-2 mb-4">
+          <lucide-icon [img]="awardIcon" class="text-lottery-yellow" size="28"></lucide-icon>
+          <span class="text-xl font-bold">
+                <span class="text-white">Lottery</span>
+                <span class="text-lottery-blue">App</span>
+          </span>
+        </a>
+        <p class="text-gray-400 mb-4">
+          La plataforma de lotería más confiable y segura para jugar y ganar.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-lottery-blue transition-colors">
+            <span class="pi pi-facebook" style="font-size: 1.25rem"></span>
+          </a>
+          <a href="#" class="hover:text-lottery-blue transition-colors">
+            <span class="pi pi-twitter" style="font-size: 1.25rem"></span>
+          </a>
+          <a href="#" class="hover:text-lottery-blue transition-colors">
+            <span class="pi pi-instagram" style="font-size: 1.25rem"></span>
+          </a>
+          <a href="#" class="hover:text-lottery-blue transition-colors">
+            <span class="pi pi-youtube" style="font-size: 1.25rem"></span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-4">Enlaces rápidos</h3>
+        <ul class="space-y-2">
+          <li><a routerLink="/" class="hover:text-lottery-blue transition-colors">Inicio</a></li>
+          <li><a routerLink="/results" class="hover:text-lottery-blue transition-colors">Resultados</a></li>
+          <li><a routerLink="/games" class="hover:text-lottery-blue transition-colors">Juegos</a></li>
+          <li><a routerLink="/contact" class="hover:text-lottery-blue transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-4">Información legal</h3>
+        <ul class="space-y-2">
+          <li><a routerLink="/terms" class="hover:text-lottery-blue transition-colors">Términos y condiciones</a></li>
+          <li><a routerLink="/privacy" class="hover:text-lottery-blue transition-colors">Política de privacidad</a></li>
+          <li><a routerLink="/responsible-gaming" class="hover:text-lottery-blue transition-colors">Juego
+            responsable</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-4">Contacto</h3>
+        <div class="space-y-2">
+          <p class="text-gray-400 mb-2">{{ 'info@lotteryapp.com' }}</p>
+          <p class="text-gray-400 mb-2">+1 234 567 8901</p>
+          <p class="text-gray-400 mb-2">Calle Principal #123, Ciudad</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500">
+      <p>&copy; {{ year }} LotteryApp. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

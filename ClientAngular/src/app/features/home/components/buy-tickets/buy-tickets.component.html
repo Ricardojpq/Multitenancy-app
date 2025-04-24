@@ -1,0 +1,55 @@
+<section class="py-16 bg-gradient-to-b from-white to-gray-100" id="comprar">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        <span class="text-lottery-dark">Compra tus </span>
+        <span class="text-lottery-blue">Boletos</span>
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Selecciona el sorteo que más te interese y adquiere tus boletos para tener la oportunidad de ganar increíbles
+        premios.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      @for (ticket of tickets; track ticket.id) {
+        <p-card key={ticket.id} class="rounded-lg border bg-card text-card-foreground shadow-sm ticket-card overflow-hidden"
+                [ngClass]="{'ring-2 ring-lottery-yellow': ticket.popular}">
+          @if (ticket.popular) {
+            <div class="bg-lottery-yellow text-lottery-dark py-1 px-2 text-center text-sm font-bold">
+              MÁS POPULAR
+            </div>
+          }
+          <div class="bg-gradient-to-r h-3" [ngClass]="ticket.color"></div>
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-4 text-lottery-dark">{{ ticket.title }}</h3>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-lottery-blue">{{ ticket.price }}</span>
+              <span class="text-gray-500"> / boleto</span>
+            </div>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex items-center">
+                <lucide-icon [img]="dollarSignIcon" size="20" class="text-lottery-teal mr-2"></lucide-icon>
+                <span>Premio: <strong>{{ ticket.prize }}</strong></span>
+              </div>
+              <div class="flex items-center">
+                <lucide-icon [img]="calendarIcon" size="20" class="text-lottery-teal mr-2"></lucide-icon>
+                <span>Fecha: <strong>{{ ticket.date }}</strong></span>
+              </div>
+              <div class="flex items-center">
+                <lucide-icon [img]="usersIcon" size="20" class="text-lottery-teal mr-2"></lucide-icon>
+                <span>Participantes: <strong>Ilimitados</strong></span>
+              </div>
+            </div>
+
+            <Button pButton class="rounded-md text-sm font-medium  bg-primary text-primary-foreground  h-10 px-4 py-2 w-full lottery-button-primary">
+              <lucide-icon [img]="shoppingCartIcon" size="18" class="mr-1"></lucide-icon>
+              Comprar Ahora
+            </Button>
+          </div>
+        </p-card>
+      }
+    </div>
+  </div>
+</section>

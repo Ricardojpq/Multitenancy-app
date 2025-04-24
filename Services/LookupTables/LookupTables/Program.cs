@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using Serilog;
@@ -107,9 +108,14 @@ builder.Services.AddAuthentication(options =>
     .AddJwtBearer(options =>
     {
         options.Authority = appSettings.IdentityServerUrl;
-        options.TokenValidationParameters.ValidateAudience = false;
         options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = false,
+            ValidTypes = new[] { "at+jwt" }
+        };
     });
 
 if (appSettings.RequiredAuthorization)

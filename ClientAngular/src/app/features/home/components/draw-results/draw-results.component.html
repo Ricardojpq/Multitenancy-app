@@ -1,0 +1,75 @@
+<section class="py-16 bg-gray-50" id="resultados">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        <span class="text-lottery-dark">Últimos </span>
+        <span class="text-lottery-blue">Resultados</span>
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Revisa los resultados de nuestros sorteos anteriores y conoce a los afortunados ganadores.
+      </p>
+    </div>
+    <div class="space-y-6 " >
+      @for (result of pastResults; track result.id; let count = $count, index = $index) {
+        @if (index + 1 <= displayCount) {
+          <p-card [styleClass]="'rounded-lg border bg-card text-card-foreground shadow-sm ticket-card mt-6 animate-fade-in'+ ' delay-'+ 100 * index "  >
+            <div class="p-0">
+              <div class="grid md:grid-cols-5 items-center">
+                <div class="p-6 md:col-span-2 border-b md:border-b-0 md:border-r border-gray-200">
+                  <div class="flex items-center mb-2">
+                    <lucide-icon [img]="awardIcon" class="text-lottery-yellow mr-1" size="20"></lucide-icon>
+                    <h3 class="text-xl font-semibold text-lottery-dark">{{ result.title }}</h3>
+                  </div>
+                  <div class="flex items-center text-gray-500 mb-4">
+                    <lucide-icon [img]="calendarIcon" class="mr-1" size="16"></lucide-icon>
+                    <span>{{ result.date }}</span>
+                  </div>
+                  <div class="text-lottery-blue font-bold text-lg">
+                    Premio: {{ result.prize }}
+                  </div>
+                </div>
+
+                <div class="p-6 text-center md:col-span-2 border-b md:border-b-0 md:border-r border-gray-200">
+                  <h4 class="text-sm uppercase text-gray-500 mb-3">Números Ganadores</h4>
+                  <div class="flex justify-center space-x-2">
+                    @for (num of result.winningNumbers; track num) {
+                      <div class="ticket-number bg-lottery-blue">
+                        {{ num }}
+                      </div>
+                    }
+                  </div>
+                </div>
+
+                <div class="p-6 text-center">
+                  <h4 class="text-sm uppercase text-gray-500 mb-2">Ganador</h4>
+                  <div class="font-bold text-lottery-dark">{{ result.winner }}</div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        }
+      }
+    </div>
+    @if (displayCount < pastResults.length) {
+      <div class="text-center mt-8">
+        <button
+          pButton
+          variant="outline"
+          class=" rounded-md text-sm font-medium  border bg-background h-10 px-4 py-2 border-lottery-blue text-lottery-blue hover:bg-lottery-blue hover:text-white"
+          (click)="showMore()"
+        >
+          Ver Más Resultados
+        </button>
+      </div>
+    }
+
+    <div class="text-center mt-8">
+      <a routerLink="/resultados">
+        <button pButton class="lottery-button-secondary">
+          <lucide-icon class="mr-1" size="18" [img]="searchIcon"></lucide-icon>
+          Ver Todos Los Resultados
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

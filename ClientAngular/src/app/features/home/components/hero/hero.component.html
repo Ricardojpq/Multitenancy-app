@@ -1,0 +1,76 @@
+<div class="relative overflow-hidden bg-lottery-dark text-white">
+  <div
+    class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-lottery-blue/20 via-lottery-dark to-lottery-dark"></div>
+
+  <!-- Decorative Elements -->
+  <div class="absolute top-10 left-10 w-20 h-20 rounded-full bg-lottery-teal/10 animate-float"></div>
+  <div class="absolute bottom-10 right-20 w-32 h-32 rounded-full bg-lottery-purple/10 animate-float"
+       [style.animation-delay]="'1s'"></div>
+  <div class="absolute top-40 right-10 w-16 h-16 rounded-full bg-lottery-yellow/10 animate-float"
+       [style.animation-delay]="'2s'"></div>
+
+  <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <span class="gradient-text">Gana grandes premios</span> en nuestros sorteos
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-8">
+          Participa en los mejores sorteos online con premios increíbles y oportunidades reales de ganar.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <a routerLink="/comprar">
+            <button pButton
+                    class=" transition-colors [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 bg-lottery-teal  w-full sm:w-auto lottery-button-primary border-none rounded-md text-sm">
+              <lucide-icon [img]="shoppingCartIcon" size="20" class="mr-1"></lucide-icon>
+              Comprar Boletos
+            </button>
+          </a>
+          <a routerLink="/resultados">
+            <button pButton variant="outline"
+                    class="rounded-md text-sm font-medium  transition-colors  [&_svg]:pointer-events-none  border bg-background h-10 px-4 py-2 border-lottery-teal text-lottery-teal hover:bg-lottery-teal hover:text-white  sm:w-auto">
+              Ver Resultados
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="relative cartoon-shadow bg-gradient-to-br from-lottery-blue to-lottery-dark p-6 rounded-2xl">
+          <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+            <h3 class="text-2xl font-bold mb-4 text-lottery-yellow">¡Próximo Sorteo!</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between">
+                <span>Premio:</span>
+                <span class="font-bold">$50,000</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Fecha:</span>
+                <span class="font-bold">15 de Octubre, 2023</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Boletos Disponibles:</span>
+                <span class="font-bold">1,245</span>
+              </div>
+              <div class="mt-6">
+                <div class="text-center mb-2">Números Ganadores</div>
+                <div class="flex justify-center space-x-2">
+                  <div class="ticket-number">8</div>
+                  <div class="ticket-number">15</div>
+                  <div class="ticket-number">27</div>
+                  <div class="ticket-number">36</div>
+                  <div class="ticket-number">42</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-lottery-yellow animate-pulse-light"></div>
+        <div class="absolute -bottom-5 -left-5 w-16 h-16 rounded-full bg-lottery-purple animate-pulse-light"
+             [style.animation-delay]="'1s'"></div>
+      </div>
+    </div>
+  </div>
+</div>

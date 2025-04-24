@@ -1,6 +1,7 @@
 ﻿using Authentication.Data;
 using Authentication.Services;
 using Authentication.Services.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,7 @@ namespace Authentication
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters.ValidateAudience = false;
                 });
+
 
             services.Configure<AppSettings>(config.GetSection("AppSettings"));
 
